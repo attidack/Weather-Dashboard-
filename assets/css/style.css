@@ -35,14 +35,16 @@
   }
   
   main {
-    margin: 20px auto;
+    margin: 15px auto;
     width: 94%;
   }
   
   p {
     font-size: 1.2rem;
   }
-  
+  .border {
+    border: 1px solid var(--dark);
+  }
    .btn {
     font-size: 1.3rem;
     text-decoration:none;
@@ -51,17 +53,17 @@
     display: block;
     margin: 5px 0;
     border-radius: var(--border-radius);
-    color: var(--primary);
+    color: var(--tertiary);
     border: none;
     outline: none;
-    background-color: var(--light-dark);
+    background-color: var(--secondary);
     box-shadow: 3px 3px var(--dark);
     transform: translate(-1px, -1px);
   }
   
    .btn:hover {
-    color: var(--primary);
-    background-color: var(--tertiary);
+    color: var(--tertiary);
+    background-color: var(--primary);
     transform: translate(0, 0);
     box-shadow: 2px 2px var(--dark);
   }
@@ -109,8 +111,9 @@
   
   .app-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
     color: var(--tertiary);
+    margin: 10px;
   }
   
   .list-group {
