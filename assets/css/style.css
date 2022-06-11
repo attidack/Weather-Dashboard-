@@ -120,7 +120,54 @@
     padding: 0;
     list-style: none;
   }
-  
+  .current-conditions{
+    padding: 10px;
+  }
+  .uv-low {
+    border: black;
+    border-radius: var(--border-radius);
+    background-color: green;
+    color: white;
+    padding: 0px 10px;
+  }
+  .uv-moderate {
+    border: black;
+    border-radius: var(--border-radius);
+    background-color: yellow;
+    color: black;
+    padding: 0px 10px;
+  }
+  .uv-high {
+    border: black;
+    border-radius: var(--border-radius);
+    background-color: orange;
+    color: black;
+    padding: 0px 10px;
+  }
+  .uv-very-high {
+    border: black;
+    border-radius: var(--border-radius);
+    background-color: red;
+    color: white;
+    padding: 0px 10px;
+  }
+
+  .forcast {
+    padding: 10px 0px;
+  }
+  .forcast-card{
+    background-color: #2d3e50;
+    font-weight: 700;
+    margin: 0;
+    color: var(--tertiary);
+    line-height: 1.25;
+    padding: 5px;
+  }
+  .forcast-card-container {
+    padding: 5px;
+    color: white;
+
+  }
   .list-item {
     margin-bottom: 10px;
     padding: 1.5%;
