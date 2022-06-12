@@ -87,93 +87,30 @@ const fetchApi = (lat,lon) => {
         weatherListGroup.append(currentTemp, currentWind, currentHumidity, currentUV)
                 
         // 5-Day forcast
-        
-        // need to lookup how to do this in a for loop
+    
         // forcast containers
         const forcastDivTitle = $('<h2>').addClass('forcast').text('5-Day Forcast:')
         const forcastContainerDiv = $('<div>').addClass('flex-row justify-space-between')
         
-//         const cars = ["BMW", "Volvo", "Mini"];
-// let text = "";
+        // forcast 5 day data loop
+        for (let index = 0; index < 5; index++) {
+            const element = data.daily[index];
+            const day = $('<div>').addClass('forcast-card col-12 col-md-2')
+            const dayDate = new Date(element.dt * 1000)
+            const dayTitle = $('<div>').text((dayDate.getMonth()+1) +'/'+ dayDate.getDate() + '/' + dayDate.getFullYear())
+            const dayiconcode = element.weather[0].icon
+            iconurl = "http://openweathermap.org/img/w/" + dayiconcode + ".png";
+            const dayWeatherIcon = $('<img>').attr('src', iconurl).attr('alt', 'weather Icon')
+            let dayTemp = $('<p>').text('Temp: ' + element.temp.day)
+            let dayWind = $('<p>').text('Wind: ' + element.wind_speed + ' MPH')
+            let dayHumidity = $('<p>').text('Humidity: ' + element.humidity + '%')
+            
+            day.append(dayTitle, dayWeatherIcon, dayTemp, dayWind, dayHumidity)
+            forcastContainerDiv.append(day)
+            forcastDiv.append(forcastDivTitle, forcastContainerDiv)
+        }
 
-// for (let x of cars) {
-//   text += x + " ";
-// }
-
-
-        // forcast day 1
-        const day1 = $('<div>').addClass('forcast-card col-12 col-md-2')
-        const day1Date = new Date(data.daily[0].dt * 1000)
-        const day1Title = $('<div>').text((day1Date.getMonth()+1) +'/'+ day1Date.getDate() + '/' + day1Date.getFullYear())
-        const day1iconcode = data.daily[0].weather[0].icon
-        iconurl = "http://openweathermap.org/img/w/" + day1iconcode + ".png";
-        const day1WeatherIcon = $('<img>').attr('src', iconurl).attr('alt', 'weather Icon')
-        let day1Temp = $('<p>').text('Temp: ' + data.daily[0].temp.day)
-        let day1Wind = $('<p>').text('Wind: ' + data.daily[0].wind_speed + ' MPH')
-        let day1Humidity = $('<p>').text('Humidity: ' + data.daily[0].humidity + '%')
         
-        day1.append(day1Title, day1WeatherIcon, day1Temp, day1Wind, day1Humidity)
-
-        // forcast day 2
-        const day2 = $('<div>').addClass('forcast-card col-12 col-md-2')
-        const day2Date = new Date(data.daily[1].dt * 1000)
-        const day2Title = $('<div>').text(day2Date.getMonth() +'/'+ day2Date.getDate() + '/' + day2Date.getFullYear())
-        const day2iconcode = data.daily[1].weather[0].icon
-        iconurl = "http://openweathermap.org/img/w/" + day2iconcode + ".png";
-        const day2WeatherIcon = $('<img>').attr('src', iconurl).attr('alt', 'weather Icon')
-        let day2Temp = $('<p>').text('Temp: ' + data.daily[1].temp.day)
-        let day2Wind = $('<p>').text('Wind: ' + data.daily[1].wind_speed + ' MPH')
-        let day2Humidity = $('<p>').text('Humidity: ' + data.daily[1].humidity + '%')
-
-
-        day2.append(day2Title, day2WeatherIcon, day2Temp, day2Wind, day2Humidity)
-
-        // forcast day 3
-        const day3 = $('<div>').addClass('forcast-card col-12 col-md-2')
-        const day3Date = new Date(data.daily[2].dt * 1000)
-        const day3Title = $('<div>').text(day3Date.getMonth() +'/'+ day3Date.getDate() + '/' + day3Date.getFullYear())
-        const day3iconcode = data.daily[2].weather[0].icon
-        iconurl = "http://openweathermap.org/img/w/" + day3iconcode + ".png";
-        const day3WeatherIcon = $('<img>').attr('src', iconurl).attr('alt', 'weather Icon')
-        let day3Temp = $('<p>').text('Temp: ' + data.daily[2].temp.day)
-        let day3Wind = $('<p>').text('Wind: ' + data.daily[2].wind_speed + ' MPH')
-        let day3Humidity = $('<p>').text('Humidity: ' + data.daily[2].humidity + '%')
-
-        day3.append(day3Title, day3WeatherIcon, day3Temp, day3Wind, day3Humidity)
-
-        // forcast day 4
-        const day4 = $('<div>').addClass('forcast-card col-12 col-md-2')
-        const day4Date = new Date(data.daily[3].dt * 1000)
-        const day4Title = $('<div>').text(day4Date.getMonth() +'/'+ day4Date.getDate() + '/' + day4Date.getFullYear())
-        const day4iconcode = data.daily[3].weather[0].icon
-        iconurl = "http://openweathermap.org/img/w/" + day4iconcode + ".png";
-        const day4WeatherIcon = $('<img>').attr('src', iconurl).attr('alt', 'weather Icon')
-        let day4Temp = $('<p>').text('Temp: ' + data.daily[3].temp.day)
-        let day4Wind = $('<p>').text('Wind: ' + data.daily[3].wind_speed + ' MPH')
-        let day4Humidity = $('<p>').text('Humidity: ' + data.daily[3].humidity + '%')
-
-        day4.append(day4Title, day4WeatherIcon, day4Temp, day4Wind, day4Humidity)
-
-        // forcast day 5
-        const day5 = $('<div>').addClass('forcast-card col-12 col-md-2')
-        const day5Date = new Date(data.daily[4].dt * 1000)
-        const day5Title = $('<div>').text(day5Date.getMonth() +'/'+ day5Date.getDate() + '/' + day5Date.getFullYear())
-        const day5iconcode = data.daily[0].weather[0].icon
-        iconurl = "http://openweathermap.org/img/w/" + day5iconcode + ".png";
-        const day5WeatherIcon = $('<img>').attr('src', iconurl).attr('alt', 'weather Icon')
-        let day5Temp = $('<p>').text('Temp: ' + data.daily[4].temp.day)
-        let day5Wind = $('<p>').text('Wind: ' + data.daily[4].wind_speed + ' MPH')
-        let day5Humidity = $('<p>').text('Humidity: ' + data.daily[4].humidity + '%')
-
-        day5.append(day5Title, day5WeatherIcon, day5Temp, day5Wind, day5Humidity)
-
-
-        //forcast appending
-        
-        forcastContainerDiv.append(day1, day2, day3, day4, day5)
-        forcastDiv.append(forcastDivTitle, forcastContainerDiv)
-        
-       // final appending
        
         console.log(data)
         console.log()
@@ -191,7 +128,7 @@ $('.btn').click(function(e){
 const handleSave = (cityName) => { 
     listOfCities = listOfCities.filter(city => city.toLowerCase() !== cityName.toLowerCase()); 
     listOfCities.push(cityName.toLowerCase());
-    // how the filter works
+    // how this filter works
     /* let tempArray = [];
     for(let i=0; i<listOfCities.length; i++) {
         let city = listOfCities[i];
