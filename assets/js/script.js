@@ -1,5 +1,6 @@
 const apikey = 'e6c309b8ef2a1bd7f06a69d09556f1f0'
 const currentConditions = $('#currentConditions')
+const historyLocation = $('#history')
 let cityName
 let currentUVspan
 let currentUVData
@@ -85,6 +86,7 @@ const fetchApi = (lat,lon) => {
         }uvlookbox(currentUVspan, currentUVData)
         currentUV.append(currentUVspan)
         weatherListGroup.append(currentTemp, currentWind, currentHumidity, currentUV)
+        console.log(data)
                 
         // 5-Day forcast
     
@@ -105,30 +107,37 @@ const fetchApi = (lat,lon) => {
             let dayWind = $('<p>').text('Wind: ' + element.wind_speed + ' MPH')
             let dayHumidity = $('<p>').text('Humidity: ' + element.humidity + '%')
             
+            // appending created elements to document
             day.append(dayTitle, dayWeatherIcon, dayTemp, dayWind, dayHumidity)
             forcastContainerDiv.append(day)
             forcastDiv.append(forcastDivTitle, forcastContainerDiv)
         }
-
-        
-       
         console.log(data)
-        console.log()
     })
 };
 // on click search for cityname
-$('.btn').click(function(e){
+$('#search').click(function(e){
     e.preventDefault()
     cityName = $('#City').val()
     locationLookup(cityName)
     handleSave(cityName)
+    
 });
+$('#historyBtn').click(function(){
+    console.log(click)
+    
+});
+
 
 // Save city to local host
 const handleSave = (cityName) => { 
     listOfCities = listOfCities.filter(city => city.toLowerCase() !== cityName.toLowerCase()); 
     listOfCities.push(cityName.toLowerCase());
-    // how this filter works
+    localStorage.setItem('history', JSON.stringify(listOfCities))
+    historyStorage = localStorage.getItem('history')
+};
+
+// how the above filter works
     /* let tempArray = [];
     for(let i=0; i<listOfCities.length; i++) {
         let city = listOfCities[i];
@@ -137,8 +146,6 @@ const handleSave = (cityName) => {
         }
     }
     listOfCities = tempArray;*/
-    localStorage.setItem('history', JSON.stringify(listOfCities))
-};
 
 // load saved history from localhost
 const load = () => {
@@ -147,7 +154,13 @@ const load = () => {
         listOfCities = []
     } else {
         listOfCities = JSON.parse(cityName)
+        for (let index = 0; index < listOfCities.length; index++) {
+            const cityName = listOfCities[index];
+            console.log(cityName)
+            let historyBtn = $('<button>').attr('id','historyBtn').addClass('btn').text(cityName)
+            historyLocation.append(historyBtn)
+        }
     }
-    console.log(cityName)
 };
+
 load()
