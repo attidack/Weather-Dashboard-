@@ -15,7 +15,6 @@ function clearPage(){
     }
 }
 
-
 // api lookup of the city name for the longitude and latitude
 const locationLookup = (cityName) => {
     var api = 'http://api.openweathermap.org/geo/1.0/direct?q='+ cityName + '&appid=' + apikey
@@ -128,7 +127,6 @@ $('#search').click(function(e){
 
 // Save city to local host
 const handleSave = (cityName) => { 
-    // listOfCities = listOfCities.filter(city => city.toLowerCase() !== cityName.toLowerCase()); 
     historyStorage = JSON.parse(localStorage.getItem('history')) || []
     if (!historyStorage.includes(cityName.toLowerCase())){
         listOfCities.push(cityName.toLowerCase());
@@ -142,19 +140,7 @@ const handleSave = (cityName) => {
     }else{
         locationLookup(cityName)
     }
-    
 };
-// how the above filter works
-    /* let tempArray = [];
-    for(let i=0; i<listOfCities.length; i++) {
-        let city = listOfCities[i];
-        if (city !== cityName) {
-            tempArray.push(city);
-        }
-    }
-    listOfCities = tempArray;*/
-
-// load saved history from localhost
 const load = () => {
     let cityName = localStorage.getItem('history')
     if (!cityName) {
