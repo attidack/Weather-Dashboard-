@@ -1,6 +1,6 @@
 const apikey = 'e6c309b8ef2a1bd7f06a69d09556f1f0'
 const currentConditions = $('#currentConditions')
-const historyLocation = $('#history')
+const historyLocation = $('#last-search')
 let cityName
 let currentUVspan
 let currentUVData
@@ -24,11 +24,11 @@ const locationLookup = (cityName) => {
         return response.json()
         
     }).then(function(data){
-        fetchApi(data[0].lat,data[0].lon)
+        fetchApi(data[0].lat,data[0].lon, cityName)
     })
 };
 // primary function of the page, weather fetch api that will append the html structure using jquary
-const fetchApi = (lat,lon) => {
+const fetchApi = (lat,lon, cityName) => {
     var oneCallApi = 'https://api.openweathermap.org/data/2.5/onecall?lat='+lat+'&lon='+lon+'&exclude=minutely,hourly,alerts&appid='+apikey+'&units=imperial'
     fetch(oneCallApi)
 
@@ -95,7 +95,7 @@ const fetchApi = (lat,lon) => {
         const forcastContainerDiv = $('<div>').addClass('flex-row justify-space-between')
         
         // forcast 5 day data loop
-        for (let index = 0; index < 5; index++) {
+        for (let index = 1; index < 6; index++) {
             const element = data.daily[index];
             const day = $('<div>').addClass('forcast-card col-12 col-md-2')
             const dayDate = new Date(element.dt * 1000)
@@ -123,20 +123,27 @@ $('#search').click(function(e){
     handleSave(cityName)
     
 });
-$('#historyBtn').click(function(){
-    console.log(click)
-    
-});
+
 
 
 // Save city to local host
 const handleSave = (cityName) => { 
-    listOfCities = listOfCities.filter(city => city.toLowerCase() !== cityName.toLowerCase()); 
-    listOfCities.push(cityName.toLowerCase());
-    localStorage.setItem('history', JSON.stringify(listOfCities))
-    historyStorage = localStorage.getItem('history')
+    // listOfCities = listOfCities.filter(city => city.toLowerCase() !== cityName.toLowerCase()); 
+    historyStorage = JSON.parse(localStorage.getItem('history')) || []
+    if (!historyStorage.includes(cityName.toLowerCase())){
+        listOfCities.push(cityName.toLowerCase());
+        localStorage.setItem('history', JSON.stringify(listOfCities))
+        let historyBtn = $('<button>').attr('id','historyBtn').addClass('btn').text(cityName)
+        $(historyBtn).click(function(){
+            let cityName = $(this).text()
+            locationLookup(cityName)
+        });
+        historyLocation.prepend(historyBtn)
+    }else{
+        locationLookup(cityName)
+    }
+    
 };
-
 // how the above filter works
     /* let tempArray = [];
     for(let i=0; i<listOfCities.length; i++) {
@@ -154,10 +161,15 @@ const load = () => {
         listOfCities = []
     } else {
         listOfCities = JSON.parse(cityName)
-        for (let index = 0; index < listOfCities.length; index++) {
-            const cityName = listOfCities[index];
+        for (let index = listOfCities.length -1; 0 <= index; index--) {
+            let cityName = listOfCities[index];
             console.log(cityName)
             let historyBtn = $('<button>').attr('id','historyBtn').addClass('btn').text(cityName)
+            $(historyBtn).click(function(){
+                let cityName = $(this).text()
+                console.log(cityName)
+                locationLookup(cityName)
+            });
             historyLocation.append(historyBtn)
         }
     }
