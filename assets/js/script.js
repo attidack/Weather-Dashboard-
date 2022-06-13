@@ -122,9 +122,6 @@ $('#search').click(function(e){
     handleSave(cityName)
     
 });
-
-
-
 // Save city to local host
 const handleSave = (cityName) => { 
     historyStorage = JSON.parse(localStorage.getItem('history')) || []
