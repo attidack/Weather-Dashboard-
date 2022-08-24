@@ -17,7 +17,7 @@ function clearPage(){
 
 // api lookup of the city name for the longitude and latitude
 const locationLookup = (cityName) => {
-    var api = 'http://api.openweathermap.org/geo/1.0/direct?q='+ cityName + '&appid=' + apikey
+    var api = 'https://api.openweathermap.org/geo/1.0/direct?q='+ cityName + '&appid=' + apikey
     fetch(api)
     .then(function(response){
         return response.json()
