@@ -63,7 +63,7 @@ const fetchApi = (lat,lon, cityName) => {
 
         // weather Icon
         let iconcode = data.current.weather[0].icon
-        iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+        iconurl = "https://openweathermap.org/img/w/" + iconcode + ".png";
         let weatherstatus = data.current.weather[0].main
         let weatherIcon = $('<img>').attr('src', iconurl).attr('alt', weatherstatus)
         cityNameSpan.append(weatherIcon)
@@ -100,7 +100,7 @@ const fetchApi = (lat,lon, cityName) => {
             const dayDate = new Date(element.dt * 1000)
             const dayTitle = $('<div>').text((dayDate.getMonth()+1) +'/'+ dayDate.getDate() + '/' + dayDate.getFullYear())
             const dayiconcode = element.weather[0].icon
-            iconurl = "http://openweathermap.org/img/w/" + dayiconcode + ".png";
+            iconurl = "https://openweathermap.org/img/w/" + dayiconcode + ".png";
             const dayWeatherIcon = $('<img>').attr('src', iconurl).attr('alt', 'weather Icon')
             let dayTemp = $('<p>').text('Temp: ' + element.temp.day)
             let dayWind = $('<p>').text('Wind: ' + element.wind_speed + ' MPH')
