@@ -4,7 +4,7 @@
 
 Website created for U of U bootcamp week 6 Challenge:
 
-simple weather dashboard that tells you the forcast for today as well as the next 5 days.  keeps a search history for reference back to other cities. 
+simple weather dashboard that tells you the forecast for today as well as the next 5 days.  keeps a search history for reference back to other cities. 
 
 
 ## Table of Contents
